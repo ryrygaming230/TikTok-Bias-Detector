@@ -1,7 +1,7 @@
 import google.generativeai as genai
 from serpapi import GoogleSearch
 
-genai.configure(api_key="AIzaSyBRY7TFhs-8NsaqaDiOXwbR91uuFL5jLLM")
+genai.configure(api_key="YOUR_API_KEY")
 geminiModel = genai.GenerativeModel("gemini-1.5-flash")
 
 def generateClaim(userText):
