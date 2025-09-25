@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>atask'i</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#4F46E5",
+            "background-light": "#F3F4F6",
+            "background-dark": "#111827",
+            "card-light": "#FFFFFF",
+            "card-dark": "#1F2937",
+            "text-light": "#1F2937",
+            "text-dark": "#F9FAFB",
+            "text-secondary-light": "#6B7280",
+            "text-secondary-dark": "#9CA3AF",
+          },
+          fontFamily: {
+            display: ["Poppins", "sans-serif"],
+          },
+          borderRadius: {
+            DEFAULT: "1.5rem",
+          },
+        },
+      },
+    };
+  </script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings:
+      'FILL' 1,
+      'wght' 400,
+      'GRAD' 0,
+      'opsz' 24
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="flex justify-center items-center h-screen">
+<div class="w-[390px] h-[844px] bg-background-dark text-text-dark rounded-DEFAULT shadow-2xl p-6 flex flex-col">
+<header class="flex justify-between items-center mb-8">
+<div class="flex items-center gap-2">
+<svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24Z" fill="#6366F1"></path>
+<path d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18Z" fill="white" fill-opacity="0.3"></path>
+</svg>
+<span class="text-xl font-bold">atask'i</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined">notifications</span>
+<img alt="User avatar" class="w-10 h-10 rounded-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbjlIEm8XDdb8E3j4ok7SQp7JFjeljc9JSASnMxugSsKD7EaaC6-WT6el7JmVi6tACJZtscxnzayQ9gWpCOW4QD_FfB6sUJOAB86lLT58rwBUJAz5DWsR8EZPeJbyZeQM8XRmCuCqV5ttmlEx9AZTF5cZqdX_fqzdYRE1zRmvTbO7vEmaH6lV_GcVly7_UzG9-D_CJVsnInfQxXOxpEa3CK7ksV-YbL8fy6kaMNwBlUDJs6lmLXqSUX2ZirUnAIGj6cXNKOcmnDcg"/>
+</div>
+</header>
+<main class="flex-1">
+<div class="mb-8">
+<h1 class="text-3xl font-medium text-text-secondary-dark">Hello,</h1>
+<h2 class="text-4xl font-bold flex items-center">Thomas Sue <span class="text-3xl ml-2">🔥</span></h2>
+</div>
+<div class="flex gap-4 mb-8">
+<div class="bg-indigo-600 rounded-DEFAULT p-4 flex-1 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start">
+<h3 class="text-lg font-semibold">UI Travel App</h3>
+<span class="material-symbols-outlined">more_horiz</span>
+</div>
+</div>
+<div class="flex justify-between items-end mt-8">
+<span class="bg-cyan-400 text-indigo-900 text-xs font-bold px-3 py-1 rounded-full">TODAY</span>
+<span class="text-sm text-indigo-200">08:00 AM</span>
+</div>
+</div>
+<div class="bg-card-dark rounded-DEFAULT p-4 flex-1 flex flex-col justify-between">
+<div>
+<div class="flex justify-between items-start">
+<h3 class="text-lg font-semibold">Respond...</h3>
+</div>
+</div>
+<div class="flex justify-between items-end mt-8">
+<span class="bg-pink-500 text-white text-xs font-bold px-3 py-1 rounded-full">TOMORROW</span>
+</div>
+</div>
+</div>
+<div class="mb-6">
+<div class="flex justify-between items-center mb-4">
+<h3 class="text-xl font-semibold">Time Management</h3>
+<div class="flex items-center gap-1 text-text-secondary-dark">
+<span>Weeks</span>
+<span class="material-symbols-outlined text-base">expand_more</span>
+</div>
+</div>
+<div class="bg-card-dark rounded-DEFAULT p-4 relative">
+<div class="relative h-32">
+<svg class="absolute inset-0 w-full h-full" preserveAspectRatio="none">
+<path d="M0 28C27 12 54 12 81 28C108 44 135 44 162 28C189 12 216 12 243 28C270 44 297 44 324 28" fill="none" stroke="#4A5568" stroke-width="2"></path>
+<path d="M0 48C27 28 54 28 81 48C108 68 135 68 162 48C189 28 216 28 243 48C270 68 297 68 324 48" fill="#4F46E5" fill-opacity="0.3"></path>
+<path d="M0 48C27 28 54 28 81 48C108 68 135 68 162 48C189 28 216 28 243 48C270 68 297 68 324 48" fill="none" stroke="#6366F1" stroke-width="2"></path>
+</svg>
+<div class="absolute" style="left: calc(50% - 40px); top: 10px;">
+<div class="bg-white text-black text-xs font-semibold px-2 py-1 rounded-full flex items-center gap-1 shadow-lg">
+<span class="w-2 h-2 bg-cyan-400 rounded-full"></span>
+                        2h 45min
+                    </div>
+</div>
+<div class="absolute w-full h-full" style="left: 0; top: 0;">
+<div class="relative w-full h-full">
+<div class="absolute bottom-[-10px]" style="left: 50%;">
+<div class="w-px h-16 bg-white"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="flex justify-between text-sm text-text-secondary-dark mt-2">
+<span>Son</span>
+<span>Mon</span>
+<span>Tue</span>
+<span class="text-white font-semibold">Wed</span>
+<span>Thu</span>
+<span>Fri</span>
+<span>Sat</span>
+</div>
+</div>
+</div>
+</main>
+<footer class="flex justify-around items-center pt-4 relative">
+<button class="text-text-secondary-dark"><span class="material-symbols-outlined">home</span></button>
+<button class="text-text-secondary-dark"><span class="material-symbols-outlined">analytics</span></button>
+<button class="bg-primary text-white p-4 rounded-full absolute -top-6 shadow-lg shadow-indigo-500/50">
+<span class="material-symbols-outlined" style="font-size: 28px;">add</span>
+</button>
+<div class="w-16"></div>
+<button class="text-text-secondary-dark"><span class="material-symbols-outlined">chat_bubble</span></button>
+<button class="text-text-secondary-dark"><span class="material-symbols-outlined">person</span></button>
+</footer>
+</div>
+</div>
+
+</body></html>
