@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8" />
+
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link 
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+  />
+  <link
+    rel="stylesheet"
+    as="style"
+    href="https://fonts.googleapis.com/css2?display=swap&family=Noto+Sans:wght@400;500;700;900&family=Spline+Sans:wght@400;500;700"
+    onload="this.rel='stylesheet'"
+  />
+
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#7f13ec",
+            "background-light": "#f7f6f8",
+            "background-dark": "#191022",
+          },
+          fontFamily: {
+            display: ["Spline Sans"],
+          },
+          borderRadius: {
+            DEFAULT: "0.5rem",
+            lg: "1rem",
+            xl: "1.5rem",
+            full: "9999px",
+          },
+        },
+      },
+    };
+  </script>
+
+  <title>Stitch Design</title>
+  <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+
+  <style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+  <div class="relative flex h-auto min-h-screen w-full flex-col justify-between overflow-x-hidden">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-10 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm">
+      <div class="flex items-center p-4 pb-2 justify-between">
+        <div class="w-12"></div>
+        <h1 class="text-lg font-bold text-slate-900 dark:text-white flex-1 text-center">History</h1>
+        <div class="flex w-12 items-center justify-end">
+          <button class="flex h-12 w-12 items-center justify-center rounded-full text-slate-500 dark:text-slate-400 hover:bg-primary/10 hover:text-primary">
+            <span class="material-symbols-outlined">ios_share</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="px-4">
+        <div class="flex border-b border-slate-200 dark:border-slate-800">
+          <a href="#" class="flex-1 py-3 text-center text-sm font-bold text-primary border-b-2 border-primary">This Week</a>
+          <a href="#" class="flex-1 py-3 text-center text-sm font-bold text-slate-500 dark:text-slate-400 border-b-2 border-transparent hover:text-primary hover:border-primary/50">Month</a>
+          <a href="#" class="flex-1 py-3 text-center text-sm font-bold text-slate-500 dark:text-slate-400 border-b-2 border-transparent hover:text-primary hover:border-primary/50">All</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main -->
+    <main class="p-4 space-y-4">
+      <div class="relative">
+        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500">search</span>
+        <input
+          type="search"
+          placeholder="Search"
+          class="w-full rounded-lg bg-slate-200/50 dark:bg-slate-800/50 border-transparent focus:border-primary focus:ring-primary h-12 pl-10 pr-4 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500"
+        />
+      </div>
+
+      <div class="flex gap-2">
+        <button class="px-4 py-1.5 rounded-full text-sm font-medium bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary">Verified</button>
+        <button class="px-4 py-1.5 rounded-full text-sm font-medium bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300">Disputed</button>
+        <button class="px-4 py-1.5 rounded-full text-sm font-medium bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300">Uncertain</button>
+      </div>
+
+      <div class="flex flex-col items-center justify-center pt-16 text-center">
+        <img
+          alt="Empty history illustration"
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9S-oXikUMqJlNxyhQET4EkiGfArsrgeb9F8d_JtB9bsuVr4oa_B3eVLGTd01nbkFtfpy_ZPTtbWDnqX00-CYgXZM9kEKNRFqPaoCNscK7tDwElTZ90fQyqnls70zuTwiR8wHGqjAiQXWHsPTHiwPYEKLnQd_J5ILmBCmnBfL6mQ8ZvJ4wGwVUu5D537axiBwYtBNxmzUxNgiTXk7YEdTmp2nCFplTj3qkID5TYlAkvQNmOqU8BIq3Bjxu5pidFAiQ8tzSYuXfeXQ"
+          class="w-48 h-48 object-contain mb-6"
+        />
+        <h2 class="text-xl font-bold text-slate-900 dark:text-white">No history yet</h2>
+        <p class="text-slate-500 dark:text-slate-400 mt-1 mb-6">Run your first analysis on Home.</p>
+        <a href="nav2_home.html" class="bg-primary text-white font-bold text-sm rounded-full h-12 px-6">Go to Home</a>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="sticky bottom-0 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm border-t border-gray-200/50 dark:border-white/10">
+      <nav class="flex justify-around p-2">
+        <a href="nav2_home.html" class="flex flex-col items-center justify-center w-1/3 py-2 text-gray-500 dark:text-gray-400">
+          <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">home</span>
+          <span class="text-xs font-medium">Home</span>
+        </a>
+        <a href="nav2_details.html" class="flex flex-col items-center justify-center w-1/3 py-2 text-gray-500 dark:text-gray-400">
+          <span class="material-symbols-outlined">add_box</span>
+          <span class="text-xs font-medium">Analyze</span>
+        </a>
+        <a href="nav2_settings.html" class="flex flex-col items-center justify-center w-1/3 py-2 text-gray-500 dark:text-gray-400">
+          <span class="material-symbols-outlined">settings</span>
+          <span class="text-xs font-medium">Settings</span>
+        </a>
+        <a href="nav2_history.html" class="flex flex-col items-center justify-center w-1/3 py-2 text-primary rounded-full bg-primary/10 dark:bg-primary/20">
+          <span class="material-symbols-outlined">history</span>
+          <span class="text-xs font-bold">History</span>
+        </a>
+      </nav>
+      <div class="h-safe-area-bottom"></div>
+    </footer>
+    
+  </div>
+</body>
+</html>
