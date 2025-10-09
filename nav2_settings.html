@@ -45,9 +45,17 @@
     .switch-bg:checked {
       background-color: #7f13ec;
     }
-    body {
-      min-height: max(884px, 100dvh);
-    }
+
+    /* Hide scrollbars but keep scrolling enabled */
+  ::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+
+  body {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;     /* Firefox */
+  }
+ 
   </style>
 </head>
 
@@ -78,8 +86,8 @@
             style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB-8I6yX5ruGuPm8B2q5QEY6FM6aOq4ddTOMuumj5q1uyso32wexoOYLi47FFwmOmDAtPdbJPWlMAxZaxhYLz6cWc804ndqcOTOtfwySeT1gPAiKBEXkpeC2fPWPMh6UZz11_4JLiBCD5FquZSjEZS3-dt84Dx_vm5JaspRyMsjXurttj2Cc5mB6t4gTxFCA0twaYwfVNjccnCobSfjGen1yfYQbvb8kXKPtJCrJiZh4z-vVfx6ZewEU8NEKlaFW2xeEm2tvD4VeGQ");'>
           </div>
           <div>
-            <p class="text-slate-900 dark:text-white text-lg font-bold">{test_User}</p>
-            <p class="text-slate-600 dark:text-slate-400 text-sm">@testUser</p>
+            <p class="text-slate-900 dark:text-white text-lg font-bold">RyanWang909</p>
+            <p class="text-slate-600 dark:text-slate-400 text-sm">@ryanWangler</p>
           </div>
         </div>
       </section>
