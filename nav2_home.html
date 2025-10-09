@@ -35,6 +35,11 @@
   </script>
 
   <style>
+
+    html, body {
+    overflow-x: hidden;
+  }
+
     .material-symbols-outlined {
       font-variation-settings:
         'FILL' 0,
@@ -42,20 +47,17 @@
         'GRAD' 0,
         'opsz' 24;
     }
-
-    body {
-      min-height: max(884px, 100dvh);
-    }
   </style>
 
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 </head>
+
 <body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
   <div class="flex flex-col min-h-screen">
 
     <!-- Header -->
     <header class="p-4 flex justify-between items-center">
-      <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Hello, User 🔥</h1>
+      <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Hello, Ryan 🔥</h1>
       <a href="nav2_settings.html" class="w-12 h-12 flex items-center justify-center rounded-full bg-primary/10 dark:bg-primary/20 text-primary">
         <span class="material-symbols-outlined text-3xl">account_circle</span>
       </a>
@@ -66,18 +68,32 @@
 
       <!-- Input card -->
       <div class="bg-background-light dark:bg-background-dark/50 p-1.5 rounded-xl shadow-sm border border-white/10 dark:border-white/5">
-        <div class="flex">
-          <button class="flex-1 py-3 text-sm font-bold text-white bg-primary rounded-lg">URL</button>
-          <button class="flex-1 py-3 text-sm font-bold text-gray-500 dark:text-gray-400">Text</button>
+        <div class="flex overflow-hidden rounded-xl">
+          <button
+            id="tab-url"
+            type="button"
+            class="flex-1 py-3 text-sm font-bold text-white bg-primary transition-all duration-200"
+          >
+            URL
+          </button>
+          <button
+            id="tab-text"
+            type="button"
+            class="flex-1 py-3 text-sm font-bold text-gray-500 dark:text-gray-400 transition-all duration-200"
+          >
+            Text
+          </button>
         </div>
+
 
         <div class="p-4 space-y-4">
           <div class="relative flex items-center">
             <input
-              class="form-input w-full pl-11 pr-4 py-4 rounded-lg bg-gray-200/50 dark:bg-black/20 border-transparent focus:border-primary focus:ring-primary placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white"
+              id="claim-input"
+              class="form-input w-full pl-11 pr-11 py-4 rounded-lg bg-gray-200/50 dark:bg-black/20 border-transparent focus:border-primary focus:ring-primary placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white"
               type="text"
               placeholder="Paste TikTok URL or caption..." />
-            <span class="material-symbols-outlined absolute left-3 text-gray-400 dark:text-gray-500">link</span>
+            <span id="input-icon" class="material-symbols-outlined absolute left-3 text-gray-400 dark:text-gray-500">link</span>
 
             <div class="group absolute right-3">
               <span class="material-symbols-outlined text-gray-400 dark:text-gray-500 cursor-help">info</span>
@@ -141,7 +157,46 @@
       </nav>
       <div class="h-safe-area-bottom"></div>
     </footer>
-    
   </div>
+
+  <!-- Tab Toggle Script -->
+  <script>
+    const tabs = {
+      url: document.getElementById('tab-url'),
+      text: document.getElementById('tab-text')
+    };
+    const input = document.getElementById('claim-input');
+    const icon = document.getElementById('input-icon');
+
+    function setActive(mode) {
+      const isURL = mode === 'url';
+
+      tabs.url.classList.toggle('bg-primary', isURL);
+      tabs.url.classList.toggle('text-white', isURL);
+      tabs.url.classList.toggle('text-gray-500', !isURL);
+      tabs.url.classList.toggle('dark:text-gray-400', !isURL);
+
+      tabs.text.classList.toggle('bg-primary', !isURL);
+      tabs.text.classList.toggle('text-white', !isURL);
+      tabs.text.classList.toggle('text-gray-500', isURL);
+      tabs.text.classList.toggle('dark:text-gray-400', isURL);
+
+      if (isURL) {
+        input.placeholder = 'Paste TikTok URL...';
+        icon.textContent = 'link';
+      } else {
+        input.placeholder = 'Type caption or claim...';
+        icon.textContent = 'text_fields';
+      }
+
+      input.dataset.mode = mode;
+    }
+
+    tabs.url.addEventListener('click', () => setActive('url'));
+    tabs.text.addEventListener('click', () => setActive('text'));
+
+    // Default tab
+    setActive('url');
+  </script>
 </body>
 </html>
