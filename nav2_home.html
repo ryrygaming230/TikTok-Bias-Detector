@@ -9,6 +9,7 @@
   <link href="https://fonts.googleapis.com" rel="preconnect" />
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 
   <script>
     tailwind.config = {
@@ -16,40 +17,25 @@
       theme: {
         extend: {
           colors: {
-            "primary": "#7f13ec",
+            primary: "#7f13ec",
             "background-light": "#f7f6f8",
             "background-dark": "#191022",
           },
           fontFamily: {
-            "display": ["Spline Sans"],
+            display: ["Spline Sans"],
           },
-          borderRadius: {
-            "DEFAULT": "0.5rem",
-            "lg": "1rem",
-            "xl": "1.5rem",
-            "full": "9999px",
-          },
+          borderRadius: { DEFAULT: "0.5rem", lg: "1rem", xl: "1.5rem", full: "9999px" },
         },
       },
     }
   </script>
 
   <style>
-
-    html, body {
-    overflow-x: hidden;
-  }
-
+    html, body { overflow-x: hidden; }
     .material-symbols-outlined {
-      font-variation-settings:
-        'FILL' 0,
-        'wght' 400,
-        'GRAD' 0,
-        'opsz' 24;
+      font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;
     }
   </style>
-
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 </head>
 
 <body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200">
@@ -69,32 +55,14 @@
       <!-- Input card -->
       <div class="bg-background-light dark:bg-background-dark/50 p-1.5 rounded-xl shadow-sm border border-white/10 dark:border-white/5">
         <div class="flex overflow-hidden rounded-xl">
-          <button
-            id="tab-url"
-            type="button"
-            class="flex-1 py-3 text-sm font-bold text-white bg-primary transition-all duration-200"
-          >
-            URL
-          </button>
-          <button
-            id="tab-text"
-            type="button"
-            class="flex-1 py-3 text-sm font-bold text-gray-500 dark:text-gray-400 transition-all duration-200"
-          >
-            Text
-          </button>
+          <button id="tab-url"  type="button" class="flex-1 py-3 text-sm font-bold text-white bg-primary transition-all duration-200">URL</button>
+          <button id="tab-text" type="button" class="flex-1 py-3 text-sm font-bold text-gray-500 dark:text-gray-400 transition-all duration-200">Text</button>
         </div>
-
 
         <div class="p-4 space-y-4">
           <div class="relative flex items-center">
-            <input
-              id="claim-input"
-              class="form-input w-full pl-11 pr-11 py-4 rounded-lg bg-gray-200/50 dark:bg-black/20 border-transparent focus:border-primary focus:ring-primary placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white"
-              type="text"
-              placeholder="Paste TikTok URL or caption..." />
+            <input id="claim-input" class="form-input w-full pl-11 pr-11 py-4 rounded-lg bg-gray-200/50 dark:bg-black/20 border-transparent focus:border-primary focus:ring-primary placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-white" type="text" placeholder="Paste TikTok URL or caption..." />
             <span id="input-icon" class="material-symbols-outlined absolute left-3 text-gray-400 dark:text-gray-500">link</span>
-
             <div class="group absolute right-3">
               <span class="material-symbols-outlined text-gray-400 dark:text-gray-500 cursor-help">info</span>
               <div class="absolute bottom-full mb-2 w-48 bg-gray-800 text-white text-xs rounded-lg p-2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none -translate-x-1/2 left-1/2">
@@ -104,13 +72,15 @@
             </div>
           </div>
 
-          <button class="w-full py-4 bg-primary text-white font-bold rounded-lg text-lg bg-gradient-to-r from-purple-500 to-indigo-600 hover:opacity-90 transition-opacity">
+          <button id="analyze-btn" class="w-full py-4 bg-primary text-white font-bold rounded-lg text-lg bg-gradient-to-r from-purple-500 to-indigo-600 hover:opacity-90 transition-opacity">
             Analyze
           </button>
+
+          <p id="error-msg" class="hidden text-sm text-red-400 font-medium"></p>
         </div>
       </div>
 
-      <!-- Results preview -->
+      <!-- Results preview (static demo block kept) -->
       <div class="space-y-3">
         <h2 class="text-xl font-bold text-gray-900 dark:text-white">Results Preview</h2>
         <div class="bg-white/5 dark:bg-black/20 p-4 rounded-xl space-y-3">
@@ -159,14 +129,13 @@
     </footer>
   </div>
 
-  <!-- Tab Toggle Script -->
+  <!-- Logic -->
   <script>
-    const tabs = {
-      url: document.getElementById('tab-url'),
-      text: document.getElementById('tab-text')
-    };
+    // ---- Tabs ----
+    const tabs = { url: document.getElementById('tab-url'), text: document.getElementById('tab-text') };
     const input = document.getElementById('claim-input');
-    const icon = document.getElementById('input-icon');
+    const icon  = document.getElementById('input-icon');
+    const errEl = document.getElementById('error-msg');
 
     function setActive(mode) {
       const isURL = mode === 'url';
@@ -181,22 +150,61 @@
       tabs.text.classList.toggle('text-gray-500', isURL);
       tabs.text.classList.toggle('dark:text-gray-400', isURL);
 
-      if (isURL) {
-        input.placeholder = 'Paste TikTok URL...';
-        icon.textContent = 'link';
-      } else {
-        input.placeholder = 'Type caption or claim...';
-        icon.textContent = 'text_fields';
-      }
-
+      input.placeholder = isURL ? 'Paste TikTok URL...' : 'Type caption or claim...';
+      icon.textContent  = isURL ? 'link' : 'text_fields';
       input.dataset.mode = mode;
     }
-
     tabs.url.addEventListener('click', () => setActive('url'));
     tabs.text.addEventListener('click', () => setActive('text'));
+    setActive('url'); // default
 
-    // Default tab
-    setActive('url');
+    // ---- API Call ----
+    const API_BASE = 'http://127.0.0.1:8000'; // change for deployment (e.g., '' if same origin)
+
+    async function analyze(userText) {
+      const res = await fetch(`${API_BASE}/verify-claim/`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userInput: userText })
+      });
+      if (!res.ok) throw new Error('API error: ' + res.status);
+      return await res.json();
+    }
+
+    const btn = document.getElementById('analyze-btn');
+    btn.addEventListener('click', async () => {
+      errEl.classList.add('hidden');
+      const userText = (input.value || '').trim();
+      if (!userText) {
+        errEl.textContent = 'Please enter a URL, caption, or claim.';
+        errEl.classList.remove('hidden');
+        return;
+      }
+
+      btn.disabled = true;
+      const original = btn.textContent;
+      btn.textContent = 'Analyzing…';
+
+      try {
+        const data = await analyze(userText);
+        localStorage.setItem('facttok_result', JSON.stringify(data));
+
+        // optional: add to local history
+        try {
+          const hist = JSON.parse(localStorage.getItem('facttok_history') || '[]');
+          hist.unshift({ ts: Date.now(), claim: data.generatedClaim || userText, verdicts: data.verificationResults || [] });
+          localStorage.setItem('facttok_history', JSON.stringify(hist.slice(0, 50)));
+        } catch {}
+
+        window.location.href = 'nav2_details.html';
+      } catch (e) {
+        errEl.textContent = e.message || 'Something went wrong. Try again.';
+        errEl.classList.remove('hidden');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = original;
+      }
+    });
   </script>
 </body>
 </html>
