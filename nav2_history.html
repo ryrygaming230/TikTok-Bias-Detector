@@ -2,56 +2,27 @@
 <html class="dark" lang="en">
 <head>
   <meta charset="utf-8" />
-
-  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link 
-    rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
-  />
-  <link
-    rel="stylesheet"
-    as="style"
-    href="https://fonts.googleapis.com/css2?display=swap&family=Noto+Sans:wght@400;500;700;900&family=Spline+Sans:wght@400;500;700"
-    onload="this.rel='stylesheet'"
-  />
-
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.gstatic.com/" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+  <link rel="stylesheet" as="style" href="https://fonts.googleapis.com/css2?display=swap&family=Noto+Sans:wght@400;500;700;900&family=Spline+Sans:wght@400;500;700" onload="this.rel='stylesheet'"/>
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <script>
     tailwind.config = {
       darkMode: "class",
       theme: {
         extend: {
-          colors: {
-            primary: "#7f13ec",
-            "background-light": "#f7f6f8",
-            "background-dark": "#191022",
-          },
-          fontFamily: {
-            display: ["Spline Sans"],
-          },
-          borderRadius: {
-            DEFAULT: "0.5rem",
-            lg: "1rem",
-            xl: "1.5rem",
-            full: "9999px",
-          },
+          colors: { primary: "#7f13ec", "background-light": "#f7f6f8", "background-dark": "#191022" },
+          fontFamily: { display: ["Spline Sans"] },
+          borderRadius: { DEFAULT: "0.5rem", lg: "1rem", xl: "1.5rem", full: "9999px" },
         },
       },
     };
   </script>
-
-  <title>History Design</title>
-  <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
-
-  <style>
-
-  </style>
+  <title>History</title>
 </head>
 <body class="bg-background-light dark:bg-background-dark font-display">
   <div class="relative flex h-auto min-h-screen w-full flex-col justify-between overflow-x-hidden">
-
-    <!-- Header -->
     <header class="sticky top-0 z-10 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm">
       <div class="flex items-center p-4 pb-2 justify-between">
         <div class="w-12"></div>
@@ -72,37 +43,22 @@
       </div>
     </header>
 
-    <!-- Main -->
     <main class="p-4 space-y-4">
       <div class="relative">
         <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-slate-500">search</span>
-        <input
-          type="search"
-          placeholder="Search"
-          class="w-full rounded-lg bg-slate-200/50 dark:bg-slate-800/50 border-transparent focus:border-primary focus:ring-primary h-12 pl-10 pr-4 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500"
-        />
+        <input type="search" placeholder="Search" class="w-full rounded-lg bg-slate-200/50 dark:bg-slate-800/50 border-transparent focus:border-primary focus:ring-primary h-12 pl-10 pr-4 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500"/>
       </div>
 
-      <div class="flex gap-2">
-        <button class="px-4 py-1.5 rounded-full text-sm font-medium bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary">Verified</button>
-        <button class="px-4 py-1.5 rounded-full text-sm font-medium bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300">Disputed</button>
-        <button class="px-4 py-1.5 rounded-full text-sm font-medium bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300">Uncertain</button>
-      </div>
+      <div id="history-list" class="space-y-3 pt-2"></div>
 
-      <div class="flex flex-col items-center justify-center pt-16 text-center">
-        <img
-          alt="Empty history illustration"
-          src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9S-oXikUMqJlNxyhQET4EkiGfArsrgeb9F8d_JtB9bsuVr4oa_B3eVLGTd01nbkFtfpy_ZPTtbWDnqX00-CYgXZM9kEKNRFqPaoCNscK7tDwElTZ90fQyqnls70zuTwiR8wHGqjAiQXWHsPTHiwPYEKLnQd_J5ILmBCmnBfL6mQ8ZvJ4wGwVUu5D537axiBwYtBNxmzUxNgiTXk7YEdTmp2nCFplTj3qkID5TYlAkvQNmOqU8BIq3Bjxu5pidFAiQ8tzSYuXfeXQ"
-          class="w-48 h-48 object-contain mb-6"
-        />
+      <div id="empty-state" class="flex flex-col items-center justify-center pt-16 text-center">
+        <img alt="Empty history illustration" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9S-oXikUMqJlNxyhQET4EkiGfArsrgeb9F8d_JtB9bsuVr4oa_B3eVLGTd01nbkFtfpy_ZPTtbWDnqX00-CYgXZM9kEKNRFqPaoCNscK7tDwElTZ90fQyqnls70zuTwiR8wHGqjAiQXWHsPTHiwPYEKLnQd_J5ILmBCmnBfL6mQ8ZvJ4wGwVUu5D537axiBwYtBNxmzUxNgiTXk7YEdTmp2nCFplTj3qkID5TYlAkvQNmOqU8BIq3Bjxu5pidFAiQ8tzSYuXfeXQ" class="w-48 h-48 object-contain mb-6"/>
         <h2 class="text-xl font-bold text-slate-900 dark:text-white">No history yet</h2>
         <p class="text-slate-500 dark:text-slate-400 mt-1 mb-6">Run your first analysis on Home.</p>
         <a href="nav2_home.html" class="bg-primary text-white font-bold text-sm rounded-full h-12 px-6 grid place-items-center">Home</a>
-
       </div>
     </main>
 
-    <!-- Footer -->
     <footer class="sticky bottom-0 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm border-t border-gray-200/50 dark:border-white/10">
       <nav class="flex justify-around p-2">
         <a href="nav2_home.html" class="flex flex-col items-center justify-center w-1/3 py-2 text-gray-500 dark:text-gray-400">
@@ -124,7 +80,61 @@
       </nav>
       <div class="h-safe-area-bottom"></div>
     </footer>
-    
   </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const list = document.getElementById('history-list');
+      const empty = document.getElementById('empty-state');
+      const hist = JSON.parse(localStorage.getItem('facttok_history') || '[]');
+
+      if (!hist.length) {
+        empty.classList.remove('hidden');
+        return;
+      }
+      empty.classList.add('hidden');
+
+      function badgeFor(verdicts) {
+        const counts = { entailment:0, contradiction:0, neutral:0 };
+        (verdicts || []).forEach(v=>{ counts[(v.prediction||'').toLowerCase()] = (counts[(v.prediction||'').toLowerCase()]||0)+1; });
+        let label = 'neutral';
+        if (counts.entailment >= counts.contradiction && counts.entailment >= counts.neutral) label = 'entailment';
+        else if (counts.contradiction >= counts.neutral) label = 'contradiction';
+
+        const map = {
+          entailment: {text:'Verified',   cls:'bg-green-500/10 text-green-400'},
+          contradiction:{text:'Contradiction',cls:'bg-red-500/10 text-red-400'},
+          neutral:{text:'Uncertain', cls:'bg-amber-500/10 text-amber-500'}
+        };
+        return map[label];
+      }
+
+      hist.forEach(item => {
+        const wrapper = document.createElement('a');
+        wrapper.href = 'nav2_details.html';
+        wrapper.className = 'flex items-center justify-between rounded-xl bg-slate-200/50 dark:bg-slate-800/50 p-4 hover:bg-slate-200 dark:hover:bg-slate-700';
+
+        const left = document.createElement('div');
+        left.className = 'flex-1';
+        const title = document.createElement('p');
+        title.className = 'font-semibold text-slate-900 dark:text-white line-clamp-1';
+        title.textContent = item.claim || 'Claim';
+        left.appendChild(title);
+
+        const badge = document.createElement('span');
+        const b = badgeFor(item.verdicts || []);
+        badge.className = `ml-3 text-xs font-bold px-2.5 py-1 rounded-full ${b.cls}`;
+        badge.textContent = b.text;
+
+        wrapper.appendChild(left);
+        wrapper.appendChild(badge);
+        wrapper.addEventListener('click', (e) => {
+          // keep it simple: clicking a card opens the latest result page
+        });
+
+        list.appendChild(wrapper);
+      });
+    });
+  </script>
 </body>
 </html>
