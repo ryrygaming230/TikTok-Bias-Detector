@@ -6,14 +6,9 @@
   <title>FactTok - Analysis Result</title>
 
   <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
-  <link 
-    rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@400;500;700;900&display=swap"
-  />
-  <link 
-    rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
-  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@400;500;700;900&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <script>
@@ -22,28 +17,20 @@
       theme: {
         extend: {
           colors: {
-            "primary": "#7f13ec",
+            primary: "#7f13ec",
             "background-light": "#f7f6f8",
             "background-dark": "#191022",
           },
-          fontFamily: {
-            "display": ["Spline Sans"],
-          },
-          borderRadius: {
-            "DEFAULT": "0.5rem",
-            "lg": "1rem",
-            "xl": "1.5rem",
-            "full": "9999px",
-          },
+          fontFamily: { display: ["Spline Sans"] },
+          borderRadius: { DEFAULT: "0.5rem", lg: "1rem", xl: "1.5rem", full: "9999px" },
         },
       },
     }
   </script>
 
   <style>
-    .gradient-bg {
-      background-image: linear-gradient(to bottom, #7f13ec, #4f46e5);
-    }
+    .gradient-bg { background-image: linear-gradient(to bottom, #7f13ec, #4f46e5); }
+    .btn-link:focus-visible { outline: 2px solid #7f13ec; outline-offset: 2px; }
   </style>
 </head>
 <body class="bg-background-light dark:bg-background-dark font-display">
@@ -62,52 +49,28 @@
       <main class="p-4 space-y-6">
 
         <!-- Claim -->
-        <section>
+        <section id="claim-section">
           <div class="flex items-start justify-between gap-3">
-            <h1 class="text-2xl font-bold leading-tight text-slate-900 dark:text-white">
-              Claim: Vaccines don't cause mind control
-            </h1>
-            <div class="flex size-12 shrink-0 items-center justify-center rounded-full bg-green-500/20 text-green-400">
-              <span class="material-symbols-outlined text-3xl">verified</span>
+            <h1 id="claim-text" class="text-2xl font-bold leading-tight text-slate-900 dark:text-white">Claim</h1>
+            <div id="verdict-pill" class="flex size-12 shrink-0 items-center justify-center rounded-full bg-slate-500/20 text-slate-400">
+              <span id="verdict-icon" class="material-symbols-outlined text-3xl">help</span>
             </div>
           </div>
+          <p id="verdict-label" class="mt-2 text-sm font-semibold text-slate-500 dark:text-slate-400"></p>
         </section>
 
         <!-- Explanation -->
         <section>
           <div class="gradient-bg flex flex-col items-start justify-center rounded-xl p-6 text-white shadow-lg">
-            <p class="text-2xl font-bold leading-snug">
-              ❌ Vaccines don’t cause mind control — they protect you from diseases 💉✨
-            </p>
+            <p id="summary-text" class="text-2xl font-bold leading-snug">Summary will appear here.</p>
           </div>
         </section>
 
         <!-- Sources -->
         <section>
           <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Sources</h2>
-          <div class="space-y-3">
-            <a href="#"
-               class="flex items-center gap-4 rounded-lg bg-slate-100 p-4 transition-colors hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700">
-              <div class="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary/20 text-primary">
-                <span class="material-symbols-outlined">link</span>
-              </div>
-              <p class="flex-1 font-semibold text-slate-800 dark:text-slate-200">
-                World Health Organization (WHO)
-              </p>
-              <span class="material-symbols-outlined text-slate-500">arrow_forward_ios</span>
-            </a>
-
-            <a href="#"
-               class="flex items-center gap-4 rounded-lg bg-slate-100 p-4 transition-colors hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700">
-              <div class="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary/20 text-primary">
-                <span class="material-symbols-outlined">link</span>
-              </div>
-              <p class="flex-1 font-semibold text-slate-800 dark:text-slate-200">
-                Centers for Disease Control (CDC)
-              </p>
-              <span class="material-symbols-outlined text-slate-500">arrow_forward_ios</span>
-            </a>
-          </div>
+          <div id="sources-list" class="space-y-3"></div>
+          <p id="no-sources" class="hidden text-slate-500 dark:text-slate-400">No sources found.</p>
         </section>
 
         <!-- Feedback -->
@@ -151,5 +114,127 @@
     </footer>
 
   </div>
+
+  <script>
+    function pickVerdict(results) {
+      const counts = { entailment: 0, contradiction: 0, neutral: 0 };
+      (results || []).forEach(r => {
+        const p = (r.prediction || "").toLowerCase();
+        if (p in counts) counts[p] += 1;
+      });
+
+      const total = counts.entailment + counts.contradiction + counts.neutral;
+      if (total === 0) return "neutral"; // Nothing found
+
+      const entailmentRatio = counts.entailment / total;
+      const contradictionRatio = counts.contradiction / total;
+
+      // 1. **Check for strong Contradiction (High Priority)**
+      // If Contradiction is the majority, OR if Contradiction is higher than Entailment AND exceeds a low threshold (e.g., 30%).
+      if (contradictionRatio > 0.5 || (contradictionRatio > entailmentRatio && contradictionRatio >= 0.30)) {
+        return "contradiction";
+      }
+
+      // 2. **Check for Verification (Entailment)**
+      // If Entailment is the most frequent label AND it meets a lower minimum threshold (e.g., 40%)
+      if (entailmentRatio >= 0.40) {
+        return "entailment";
+      }
+
+      // 3. Otherwise, the evidence is too mixed or weak
+      return "neutral"; 
+    }
+
+    function verdictStyle(label) {
+      switch (label) {
+        case "entailment":
+          return { colorBg: "bg-green-500/20", colorText: "text-green-400", icon: "verified", text: "Verified" };
+        case "contradiction":
+          return { colorBg: "bg-red-500/20", colorText: "text-red-400", icon: "block", text: "Contradiction" };
+        default:
+          return { colorBg: "bg-amber-500/20", colorText: "text-amber-400", icon: "help", text: "Uncertain" };
+      }
+    }
+
+    function el(tag, cls="", text="") {
+      const e = document.createElement(tag);
+      if (cls) e.className = cls;
+      if (text) e.textContent = text;
+      return e;
+    }
+
+    function getDomain(url) {
+      try {
+        return new URL(url).hostname.replace(/^www\./,'');
+      } catch { return ""; }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const raw = localStorage.getItem('facttok_result');
+      if (!raw) { window.location.href = 'nav2_home.html'; return; }
+      const data = JSON.parse(raw);
+
+      const claim = data.generatedClaim || data.userInput || "Claim";
+      const results = data.verificationResults || [];
+      const verdict = pickVerdict(results);
+      const style = verdictStyle(verdict);
+
+      // Claim + verdict
+      document.getElementById('claim-text').textContent = `Claim: ${claim}`;
+      const pill = document.getElementById('verdict-pill');
+      const icon = document.getElementById('verdict-icon');
+      pill.className = `flex size-12 shrink-0 items-center justify-center rounded-full ${style.colorBg} ${style.colorText}`;
+      icon.textContent = style.icon;
+      document.getElementById('verdict-label').textContent = style.text;
+
+      // Summary
+      document.getElementById('summary-text').textContent = data.summary || "No summary available.";
+
+      // Sources (each item is an actual clickable link)
+      const list = document.getElementById('sources-list');
+      const noSources = document.getElementById('no-sources');
+      list.innerHTML = "";
+      const sources = (data.sourceSearchResults || []).filter(s => s.link);
+
+      if (!sources.length) {
+        noSources.classList.remove('hidden');
+        return;
+      }
+      noSources.classList.add('hidden');
+
+      sources.forEach(s => {
+        const url = s.link;
+        const domain = getDomain(url);
+
+        // Make the entire “button” an <a> so it naturally navigates to the site
+        const a = document.createElement('a');
+        a.href = url;
+        // If you prefer opening in a new tab, uncomment the next two lines:
+        // a.target = "_blank";
+        // a.rel = "noopener noreferrer";
+
+        a.className = "btn-link flex items-center gap-4 rounded-lg bg-slate-100 p-4 transition-colors hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700";
+        a.setAttribute("role", "button");
+
+        const iconWrap = el('div', `flex size-10 shrink-0 items-center justify-center rounded-full bg-primary/20 text-primary`);
+        const linkIcon = el('span', 'material-symbols-outlined', 'link');
+        iconWrap.appendChild(linkIcon);
+
+        const textWrap = el('div', 'flex-1');
+        const title = el('p', 'font-semibold text-slate-800 dark:text-slate-200 line-clamp-1', s.title || 'Source');
+        const meta  = el('p', 'text-xs text-slate-500 dark:text-slate-400 mt-0.5', domain);
+        textWrap.appendChild(title);
+        textWrap.appendChild(meta);
+
+        const chev = el('span', 'material-symbols-outlined text-slate-500', 'open_in_new');
+
+        a.appendChild(iconWrap);
+        a.appendChild(textWrap);
+        a.appendChild(chev);
+
+        list.appendChild(a);
+      });
+    });
+  </script>
 </body>
 </html>
