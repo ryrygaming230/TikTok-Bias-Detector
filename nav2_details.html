@@ -142,7 +142,7 @@
       }
 
       // 3. Otherwise, the evidence is too mixed or weak
-      return "neutral"; 
+      return "neutral";
     }
 
     function verdictStyle(label) {
@@ -185,7 +185,43 @@
       const icon = document.getElementById('verdict-icon');
       pill.className = `flex size-12 shrink-0 items-center justify-center rounded-full ${style.colorBg} ${style.colorText}`;
       icon.textContent = style.icon;
-      document.getElementById('verdict-label').textContent = style.text;
+
+      // --- SMALL CHANGE: compute & append confidence (small, lighter text) ---
+      // Compute confidence to display next to the verdict label.
+      // Prefer backend-provided data.overallConfidence if present,
+      // otherwise compute average of per-result top probabilities (safe fallback).
+      function computeOverallConfidence(data) {
+        if (data === undefined || data === null) return null;
+
+        // backend-provided single number (0-100 or 0-1). handle both.
+        if (typeof data.overallConfidence === "number") {
+          let val = data.overallConfidence;
+          // if backend sent decimal (0-1), convert to percent
+          if (val <= 1) val = val * 100;
+          return Math.round(val * 10) / 10; // one decimal
+        }
+
+        // Fallback: compute from verificationResults[].probabilities
+        const results = data.verificationResults || [];
+        if (!results.length) return null;
+
+        let sum = 0;
+        let count = 0;
+        results.forEach(r => {
+          const p = r.probabilities || {};
+          // pick largest probability among known labels
+          const c = Math.max(Number(p.contradiction || 0), Number(p.neutral || 0), Number(p.entailment || 0));
+          if (!isNaN(c) && c > 0) { sum += c; count += 1; }
+        });
+        if (count === 0) return null;
+        const avg = (sum / count) * 100;
+        return Math.round(avg * 10) / 10; // one decimal
+      }
+
+      const conf = computeOverallConfidence(data);
+      // Use innerHTML so we can style the confidence separately; keep the existing label text intact.
+      const confHtml = conf !== null ? ` <span class="ml-2 text-xs text-slate-400 dark:text-slate-500">(confidence: ${conf}%)</span>` : "";
+      document.getElementById('verdict-label').innerHTML = style.text + confHtml;
 
       // Summary
       document.getElementById('summary-text').textContent = data.summary || "No summary available.";
@@ -234,7 +270,7 @@
 
         list.appendChild(a);
       });
-    });
+    });A
   </script>
 </body>
 </html>
